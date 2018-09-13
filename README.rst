@@ -49,3 +49,6 @@ options are available. For python bindings, see `the python docs`__.
 .. __: docs/building.rst
 .. __: docs/python_binding.rst
 
+- Torrent signature changed from "BitTorrent protocol" to "BdapTorrentProtocol".
+- Torrent/DHT query changed from "y" to "i" 
+- Torrent/DHT answer changed from "a" to "o"

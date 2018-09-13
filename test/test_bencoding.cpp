@@ -212,7 +212,7 @@ TORRENT_TEST(print_deep_dict_single_line)
 	e["ints"].list().push_back(entry(1));
 	e["ints"].list().push_back(entry(2));
 	e["ints"].list().push_back(entry(3));
-	e["a"] = "foobar";
+	e["o"] = "foobar";
 	TEST_EQUAL(e.to_string(true), "{ 'a': 'foobar', 'ints': [ 1, 2, 3 ], 'strings': [ 'foo', 'bar' ] }");
 }
 
@@ -224,7 +224,7 @@ TORRENT_TEST(print_deep_dict)
 	e["ints"].list().push_back(entry(1));
 	e["ints"].list().push_back(entry(2));
 	e["ints"].list().push_back(entry(3));
-	e["a"] = "foobar";
+	e["o"] = "foobar";
 	TEST_EQUAL(e.to_string(), "{\n 'a': 'foobar',\n 'ints': [\n   1,\n   2,\n   3 ],\n 'strings': [\n   'foo',\n   'bar' ] }");
 }
 
@@ -293,8 +293,8 @@ TORRENT_TEST(lazy_entry)
 		TEST_CHECK(section.second == sizeof(b) - 1);
 		TEST_CHECK(e.type() == lazy_entry::dict_t);
 		TEST_CHECK(e.dict_size() == 4);
-		TEST_CHECK(e.dict_find("a")->type() == lazy_entry::int_t);
-		TEST_CHECK(e.dict_find("a")->int_value() == 12453);
+		TEST_CHECK(e.dict_find("o")->type() == lazy_entry::int_t);
+		TEST_CHECK(e.dict_find("o")->int_value() == 12453);
 		TEST_CHECK(e.dict_find("b")->type() == lazy_entry::string_t);
 		TEST_CHECK(e.dict_find("b")->string_value() == std::string("aaa"));
 		TEST_CHECK(e.dict_find("b")->string_length() == 3);

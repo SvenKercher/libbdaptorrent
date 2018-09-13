@@ -135,8 +135,8 @@ bool get_item::invoke(observer_ptr o)
 	if (m_done) return false;
 
 	entry e;
-	e["y"] = "q";
-	entry& a = e["a"];
+	e["i"] = "q";
+	entry& a = e["o"];
 
 	e["q"] = "get";
 	a["target"] = target().to_string();

@@ -866,7 +866,7 @@ TORRENT_TEST(dict_find_funs)
 
 	TEST_CHECK(e.dict_find_dict("d"));
 	TEST_EQUAL(e.dict_find_dict("d").dict_find_int_value("x"), 1);
-	TEST_EQUAL(e.dict_find_dict("d").dict_find_int_value("y", -10), -10);
+	TEST_EQUAL(e.dict_find_dict("d").dict_find_int_value("i", -10), -10);
 	TEST_CHECK(!e.dict_find_dict("c"));
 
 	// variants taking std::string
@@ -920,7 +920,7 @@ TORRENT_TEST(list_at_funs)
 	TEST_EQUAL(e.list_at(3).type(), bdecode_node::dict_t);
 	TEST_EQUAL(e.list_at(3).dict_size(), 1);
 	TEST_EQUAL(e.list_at(3).dict_find_int_value("x"), 1);
-	TEST_EQUAL(e.list_at(3).dict_find_int_value("y", -10), -10);
+	TEST_EQUAL(e.list_at(3).dict_find_int_value("i", -10), -10);
 
 	TEST_EQUAL(e.list_size(), 4);
 	TEST_EQUAL(e.list_size(), 4);

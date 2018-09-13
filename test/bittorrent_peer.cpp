@@ -77,7 +77,7 @@ void peer_conn::on_connect(error_code const& ec)
 		return;
 	}
 
-	char handshake[] = "\x13" "BitTorrent protocol\0\0\0\0\0\0\0\x04"
+	char handshake[] = "\x13" "BdapTorrentProtocol\0\0\0\0\0\0\0\x04"
 		"                    " // space for info-hash
 		"aaaaaaaaaaaaaaaaaaaa" // peer-id
 		"\0\0\0\x01\x02"; // interested

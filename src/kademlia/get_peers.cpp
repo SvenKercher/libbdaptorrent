@@ -133,8 +133,8 @@ bool get_peers::invoke(observer_ptr o)
 	if (m_done) return false;
 
 	entry e;
-	e["y"] = "q";
-	entry& a = e["a"];
+	e["i"] = "q";
+	entry& a = e["o"];
 
 	e["q"] = "get_peers";
 	a["info_hash"] = target().to_string();
@@ -226,9 +226,9 @@ bool obfuscated_get_peers::invoke(observer_ptr o)
 	}
 
 	entry e;
-	e["y"] = "q";
+	e["i"] = "q";
 	e["q"] = "get_peers";
-	entry& a = e["a"];
+	entry& a = e["o"];
 
 	// This logic will obfuscate the target info-hash
 	// we're looking up, in order to preserve more privacy

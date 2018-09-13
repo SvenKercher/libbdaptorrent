@@ -50,8 +50,8 @@ observer_ptr bootstrap::new_observer(udp::endpoint const& ep
 bool bootstrap::invoke(observer_ptr o)
 {
 	entry e;
-	e["y"] = "q";
-	entry& a = e["a"];
+	e["i"] = "q";
+	entry& a = e["o"];
 
 	e["q"] = "get_peers";
 	// in case our node id changes during the bootstrap, make sure to always use

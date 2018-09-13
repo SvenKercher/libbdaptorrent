@@ -252,8 +252,8 @@ bool rpc_manager::incoming(msg const& m, node_id* id)
 	if (m_destructing) return false;
 
 	// we only deal with replies and errors, not queries
-	TORRENT_ASSERT(m.message.dict_find_string_value("y") == "r"
-		|| m.message.dict_find_string_value("y") == "e");
+	TORRENT_ASSERT(m.message.dict_find_string_value("i") == "r"
+		|| m.message.dict_find_string_value("i") == "e");
 
 	// if we don't have the transaction id in our
 	// request list, ignore the packet
@@ -305,7 +305,7 @@ bool rpc_manager::incoming(msg const& m, node_id* id)
 	}
 #endif
 
-	if (m.message.dict_find_string_value("y") == "e")
+	if (m.message.dict_find_string_value("i") == "e")
 	{
 		// It's an error.
 #ifndef TORRENT_DISABLE_LOGGING
@@ -458,8 +458,8 @@ bool rpc_manager::invoke(entry& e, udp::endpoint const& target_addr
 
 	if (m_destructing) return false;
 
-	e["y"] = "q";
-	entry& a = e["a"];
+	e["i"] = "q";
+	entry& a = e["o"];
 	add_our_id(a);
 
 	std::string transaction_id;

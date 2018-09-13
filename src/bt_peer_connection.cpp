@@ -676,7 +676,7 @@ namespace {
 		TORRENT_ASSERT(t);
 
 		// add handshake to the send buffer
-		static const char version_string[] = "BitTorrent protocol";
+		static const char version_string[] = "BdapTorrentProtocol";
 		const int string_len = sizeof(version_string) - 1;
 
 		char handshake[1 + string_len + 8 + 20 + 20];
@@ -2937,7 +2937,7 @@ namespace {
 			recv_buffer = m_recv_buffer.get();
 
 			int packet_size = recv_buffer[0];
-			static const char protocol_string[] = "\x13" "BitTorrent protocol";
+			static const char protocol_string[] = "\x13" "BdapTorrentProtocol";
 
 			if (packet_size != 19 ||
 				std::memcmp(recv_buffer.begin(), protocol_string, 20) != 0)
@@ -3007,7 +3007,7 @@ namespace {
 #endif
 
 #ifndef TORRENT_DISABLE_LOGGING
-				peer_log(peer_log_alert::incoming_message, "HANDSHAKE", "BitTorrent protocol");
+				peer_log(peer_log_alert::incoming_message, "HANDSHAKE", "BdapTorrentProtocol");
 #endif
 			}
 

@@ -97,7 +97,7 @@ node_id calculate_node_id(node_id const& nid, aux::listen_socket_handle const& s
 // generate an error response message
 void incoming_error(entry& e, char const* msg, int error_code = 203)
 {
-	e["y"] = "e";
+	e["i"] = "e";
 	entry::list_type& l = e["e"].list();
 	l.emplace_back(error_code);
 	l.emplace_back(msg);
@@ -258,7 +258,7 @@ void node::unreachable(udp::endpoint const& ep)
 void node::incoming(aux::listen_socket_handle const& s, msg const& m)
 {
 	// is this a reply?
-	bdecode_node const y_ent = m.message.dict_find_string("y");
+	bdecode_node const y_ent = m.message.dict_find_string("i");
 	if (!y_ent || y_ent.string_length() == 0)
 	{
 		// don't respond to this obviously broken messages. We don't
@@ -307,7 +307,7 @@ void node::incoming(aux::listen_socket_handle const& s, msg const& m)
 		}
 		case 'q':
 		{
-			TORRENT_ASSERT(m.message.dict_find_string_value("y") == "q");
+			TORRENT_ASSERT(m.message.dict_find_string_value("i") == "q");
 			// When a DHT node enters the read-only state, it no longer
 			// responds to 'query' messages that it receives.
 			if (m_settings.read_only) break;
@@ -387,9 +387,9 @@ namespace {
 			o->m_in_constructor = false;
 #endif
 			entry e;
-			e["y"] = "q";
+			e["i"] = "q";
 			e["q"] = "announce_peer";
-			entry& a = e["a"];
+			entry& a = e["o"];
 			a["info_hash"] = ih;
 			a["port"] = listen_port;
 			a["token"] = p.second;
@@ -596,7 +596,7 @@ void node::sample_infohashes(udp::endpoint const& ep, sha1_hash const& target
 	entry e;
 
 	e["q"] = "sample_infohashes";
-	e["a"]["target"] = target;
+	e["o"]["target"] = target;
 
 	stats_counters().inc_stats_counter(counters::dht_sample_infohashes_out);
 
@@ -685,8 +685,8 @@ void node::send_single_refresh(udp::endpoint const& ep, int const bucket
 	o->m_in_constructor = false;
 #endif
 	entry e;
-	e["y"] = "q";
-	entry& a = e["a"];
+	e["i"] = "q";
+	entry& a = e["o"];
 
 	if (m_table.is_full(bucket))
 	{
@@ -782,13 +782,13 @@ entry write_nodes_entry(std::vector<node_entry> const& nodes)
 void node::incoming_request(msg const& m, entry& e)
 {
 	e = entry(entry::dictionary_t);
-	e["y"] = "r";
+	e["i"] = "r";
 	e["t"] = m.message.dict_find_string_value("t").to_string();
 
 	static key_desc_t const top_desc[] = {
 		{"q", bdecode_node::string_t, 0, 0},
 		{"ro", bdecode_node::int_t, 0, key_desc_t::optional},
-		{"a", bdecode_node::dict_t, 0, key_desc_t::parse_children},
+		{"o", bdecode_node::dict_t, 0, key_desc_t::parse_children},
 			{"id", bdecode_node::string_t, 20, key_desc_t::last_child},
 	};
 
