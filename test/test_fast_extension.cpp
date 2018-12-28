@@ -251,7 +251,7 @@ void send_bitfield(tcp::socket& s, char const* bits)
 
 void do_handshake(tcp::socket& s, sha1_hash const& ih, char* buffer)
 {
-	char handshake[] = "\x13" "BitTorrent protocol\0\0\0\0\0\x10\0\x04"
+	char handshake[] = "\x13" "BDAPTorrentProtocol\0\0\0\0\0\x10\0\x04"
 		"                    " // space for info-hash
 		"aaaaaaaaaaaaaaaaaaaa"; // peer-id
 	log("==> handshake");
@@ -276,7 +276,7 @@ void do_handshake(tcp::socket& s, sha1_hash const& ih, char* buffer)
 	log("<== handshake");
 
 	TEST_CHECK(buffer[0] == 19);
-	TEST_CHECK(std::memcmp(buffer + 1, "BitTorrent protocol", 19) == 0);
+	TEST_CHECK(std::memcmp(buffer + 1, "BDAPTorrentProtocol", 19) == 0);
 
 	char* extensions = buffer + 20;
 	// check for fast extension support

@@ -145,7 +145,7 @@ private:
 		if (ec) return;
 
 		static char const handshake[]
-		= "\x13" "BitTorrent protocol\0\0\0\0\0\0\0\x04"
+		= "\x13" "BDAPTorrentProtocol\0\0\0\0\0\0\0\x04"
 			"                    " // space for info-hash
 			"aaaaaaaaaaaaaaaaaaaa"; // peer-id
 		int const len = sizeof(handshake) - 1;
@@ -185,7 +185,7 @@ private:
 			return;
 		}
 
-		if (memcmp(&m_out_buffer[0], "\x13" "BitTorrent protocol", 20) != 0)
+		if (memcmp(&m_out_buffer[0], "\x13" "BDAPTorrentProtocol", 20) != 0)
 		{
 			std::printf("  invalid protocol specifier\n");
 			m_socket.close();

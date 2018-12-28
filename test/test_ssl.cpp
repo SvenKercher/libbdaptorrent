@@ -484,7 +484,7 @@ bool try_connect(lt::session& ses1, int port
 		return false;
 	}
 
-	char handshake[] = "\x13" "BitTorrent protocol\0\0\0\0\0\0\0\x04"
+	char handshake[] = "\x13" "BDAPTorrentProtocol\0\0\0\0\0\0\0\x04"
 		"                    " // space for info-hash
 		"aaaaaaaaaaaaaaaaaaaa" // peer-id
 		"\0\0\0\x01\x02"; // interested
@@ -525,7 +525,7 @@ bool try_connect(lt::session& ses1, int port
 		return false;
 	}
 
-	if (memcmp(buf, "\x13" "BitTorrent protocol", 20) != 0)
+	if (memcmp(buf, "\x13" "BDAPTorrentProtocol", 20) != 0)
 	{
 		std::printf("invalid bittorrent handshake\n");
 		return false;
