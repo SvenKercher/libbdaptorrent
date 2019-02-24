@@ -105,7 +105,9 @@ bool put_data::invoke(observer_ptr o)
 			a["salt"] = m_data.salt();
 		}
 	}
-
+#ifndef TORRENT_DISABLE_LOGGING
+	get_node().observer()->log(dht_logger::tracker, "*** new wput_data::invoke ***");
+#endif
 	m_node.stats_counters().inc_stats_counter(counters::dht_put_out);
 
 	return m_node.m_rpc.invoke(e, o->target_ep(), o);

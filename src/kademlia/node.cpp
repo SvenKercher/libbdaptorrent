@@ -147,8 +147,8 @@ void node::update_node_id()
 		return;
 
 #ifndef TORRENT_DISABLE_LOGGING
-	if (m_observer != nullptr) m_observer->log(dht_logger::node
-		, "updating node ID (because external IP address changed)");
+	if (m_observer != nullptr) 
+		m_observer->log(dht_logger::node, "updating node ID (because external IP address changed)");
 #endif
 
 	m_id = generate_id(ext_address);
@@ -257,6 +257,9 @@ void node::unreachable(udp::endpoint const& ep)
 
 void node::incoming(aux::listen_socket_handle const& s, msg const& m)
 {
+#ifndef TORRENT_DISABLE_LOGGING
+	m_observer->log(dht_logger::node, "*** node::incoming begin ***");
+#endif
 	// is this a reply?
 	bdecode_node const y_ent = m.message.dict_find_string("y");
 	if (!y_ent || y_ent.string_length() == 0)
@@ -329,7 +332,7 @@ void node::incoming(aux::listen_socket_handle const& s, msg const& m)
 		case 'e':
 		{
 #ifndef TORRENT_DISABLE_LOGGING
-			if (m_observer != nullptr && m_observer->should_log(dht_logger::node))
+			if (m_observer != nullptr)
 			{
 				bdecode_node const err = m.message.dict_find_list("e");
 				if (err && err.list_size() >= 2
@@ -360,7 +363,7 @@ namespace {
 	{
 #ifndef TORRENT_DISABLE_LOGGING
 		auto logger = node.observer();
-		if (logger != nullptr && logger->should_log(dht_logger::node))
+		if (logger != nullptr)
 		{
 			logger->log(dht_logger::node, "sending announce_peer [ ih: %s "
 				" p: %d nodes: %d ]", aux::to_hex(ih).c_str(), listen_port, int(v.size()));
@@ -373,7 +376,7 @@ namespace {
 		for (auto const& p : v)
 		{
 #ifndef TORRENT_DISABLE_LOGGING
-			if (logger != nullptr && logger->should_log(dht_logger::node))
+			if (logger != nullptr)
 			{
 				logger->log(dht_logger::node, "announce-distance: %d"
 					, (160 - distance_exp(ih, p.first.id)));
@@ -404,7 +407,7 @@ namespace {
 void node::add_router_node(udp::endpoint const& router)
 {
 #ifndef TORRENT_DISABLE_LOGGING
-	if (m_observer != nullptr && m_observer->should_log(dht_logger::node))
+	if (m_observer != nullptr)
 	{
 		m_observer->log(dht_logger::node, "adding router node: %s"
 			, print_endpoint(router).c_str());
@@ -441,7 +444,7 @@ void node::announce(sha1_hash const& info_hash, int listen_port, announce_flags_
 	, std::function<void(std::vector<tcp::endpoint> const&)> f)
 {
 #ifndef TORRENT_DISABLE_LOGGING
-	if (m_observer != nullptr && m_observer->should_log(dht_logger::node))
+	if (m_observer != nullptr)
 	{
 		m_observer->log(dht_logger::node, "announcing [ ih: %s p: %d ]"
 			, aux::to_hex(info_hash).c_str(), listen_port);
@@ -478,7 +481,7 @@ void node::get_item(sha1_hash const& target
 	, std::function<void(item const&)> f)
 {
 #ifndef TORRENT_DISABLE_LOGGING
-	if (m_observer != nullptr && m_observer->should_log(dht_logger::node))
+	if (m_observer != nullptr)
 	{
 		m_observer->log(dht_logger::node, "starting get for [ hash: %s ]"
 			, aux::to_hex(target).c_str());
@@ -494,7 +497,7 @@ void node::get_item(public_key const& pk, std::string const& salt
 	, std::function<void(item const&, bool)> f)
 {
 #ifndef TORRENT_DISABLE_LOGGING
-	if (m_observer != nullptr && m_observer->should_log(dht_logger::node))
+	if (m_observer != nullptr)
 	{
 		char hex_key[65];
 		aux::to_hex(pk.bytes, hex_key);
@@ -534,10 +537,9 @@ void put_data_cb(item const& i, bool auth
 void node::put_item(sha1_hash const& target, entry const& data, std::function<void(int)> f)
 {
 #ifndef TORRENT_DISABLE_LOGGING
-	if (m_observer != nullptr && m_observer->should_log(dht_logger::node))
+	if (m_observer != nullptr)
 	{
-		m_observer->log(dht_logger::node, "starting get for [ hash: %s ]"
-			, aux::to_hex(target).c_str());
+		m_observer->log(dht_logger::node, "starting get for [ hash: %s ]", aux::to_hex(target).c_str());
 	}
 #endif
 
@@ -556,7 +558,7 @@ void node::put_item(public_key const& pk, std::string const& salt
 	, std::function<void(item&)> data_cb)
 {
 #ifndef TORRENT_DISABLE_LOGGING
-	if (m_observer != nullptr && m_observer->should_log(dht_logger::node))
+	if (m_observer != nullptr)
 	{
 		char hex_key[65];
 		aux::to_hex(pk.bytes, hex_key);
@@ -578,7 +580,7 @@ void node::sample_infohashes(udp::endpoint const& ep, sha1_hash const& target
 		, std::vector<std::pair<sha1_hash, udp::endpoint>>)> f)
 {
 #ifndef TORRENT_DISABLE_LOGGING
-	if (m_observer != nullptr && m_observer->should_log(dht_logger::node))
+	if (m_observer != nullptr)
 	{
 		m_observer->log(dht_logger::node, "starting sample_infohashes for [ node: %s, target: %s ]"
 			, print_endpoint(ep).c_str(), aux::to_hex(target).c_str());

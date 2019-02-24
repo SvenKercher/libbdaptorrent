@@ -104,7 +104,6 @@ bool verify_mutable_item(
 {
 	char str[MAX_DHT_MUTABLE_DATA_LENGTH + 200];
 	int len = canonical_string(v, seq, salt, str);
-
 	return ed25519_verify(sig, {str, len}, pk);
 }
 
@@ -123,7 +122,6 @@ signature sign_mutable_item(
 {
 	char str[MAX_DHT_MUTABLE_DATA_LENGTH + 200];
 	int const len = canonical_string(v, seq, salt, str);
-
 	return ed25519_sign({str, len}, pk, sk);
 }
 
@@ -172,7 +170,7 @@ void item::assign(entry v, span<char const> salt
 	m_pk = pk;
 	m_seq = seq;
 	m_mutable = true;
-	m_value = std::move(v);
+	m_value = std::move(v);	
 }
 
 void item::assign(bdecode_node const& v)

@@ -297,7 +297,7 @@ namespace libtorrent { namespace dht {
 			n.second.dht.new_write_key();
 
 #ifndef TORRENT_DISABLE_LOGGING
-		m_log->log(dht_logger::tracker, "*** new write key***");
+		m_log->log(dht_logger::tracker, "*** new write key ***");
 #endif
 	}
 
