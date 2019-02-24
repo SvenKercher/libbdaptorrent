@@ -1,5 +1,6 @@
 tool_programs =  \
   dht_put \
+  dht_largedata \
   session_log_alerts
 
 if ENABLE_EXAMPLES
@@ -19,7 +20,7 @@ EXTRA_DIST = Jamfile     \
 
 session_log_alerts_SOURCES = session_log_alerts.cpp
 dht_put_SOURCES = dht_put.cpp
-
+dht_largedata_SOURCES = dht_largedata.cpp
 LDADD = $(top_builddir)/src/libtorrent-rasterbar.la
 
 AM_CPPFLAGS = -ftemplate-depth-50 -I$(top_srcdir)/include @DEBUGFLAGS@
