@@ -89,7 +89,7 @@ void print_alerts(lt::session& s)
 	s.pop_alerts(&alerts);
 	for (std::vector<alert*>::iterator i = alerts.begin(), end(alerts.end()); i != end; ++i)
 	{
-		std::printf("\r%s", (*i)->message().c_str());
+		std::printf("\r%s\n", (*i)->message().c_str());
 		std::fflush(stdout);
 	}
 	std::printf("\n");
@@ -371,7 +371,7 @@ int main(int argc, char* argv[])
 
 			authoritative = item->authoritative;
 			std::string str = item->item.to_string();
-			std::printf("%s: %s", authoritative ? "auth" : "non-auth", str.c_str());
+			std::printf("%s: %s\n", authoritative ? "auth" : "non-auth", str.c_str());
 		}
 	}
 	else if (argv[0] == "listen"_sv)

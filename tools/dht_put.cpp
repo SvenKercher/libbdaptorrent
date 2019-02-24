@@ -373,7 +373,7 @@ int main(int argc, char* argv[])
 
 			authoritative = item->authoritative;
 			std::string str = item->item.to_string();
-			std::printf("%s: %s", authoritative ? "auth" : "non-auth", str.c_str());
+			std::printf("%s: %s\n", authoritative ? "auth" : "non-auth", str.c_str());
 		}
 	}
 	else
