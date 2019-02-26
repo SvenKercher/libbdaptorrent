@@ -293,10 +293,10 @@ int main(int argc, char* argv[])
 
 	params.settings.set_bool(settings_pack::enable_natpmp, true);
 	params.settings.set_int(settings_pack::dht_announce_interval, (60));
-	params.settings.set_bool(settings_pack::enable_outgoing_utp, true);
-	params.settings.set_bool(settings_pack::enable_incoming_utp, true);
-	params.settings.set_bool(settings_pack::enable_outgoing_tcp, false);
-	params.settings.set_bool(settings_pack::enable_incoming_tcp, false);
+	params.settings.set_bool(settings_pack::enable_outgoing_utp, false);
+	params.settings.set_bool(settings_pack::enable_incoming_utp, false);
+	params.settings.set_bool(settings_pack::enable_outgoing_tcp, true);
+	params.settings.set_bool(settings_pack::enable_incoming_tcp, true);
 
 	params.settings.set_bool(settings_pack::enable_dht, false);
 	params.settings.set_int(settings_pack::alert_mask, 0x7fffffff);
